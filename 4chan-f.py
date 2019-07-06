@@ -14,7 +14,7 @@ settings = {
 	"flashplayer-path": "flashplayer" #my player is on my $PATH
 }
 
-import urllib.request, json, os, urllib.parse, html
+import urllib.request, json, os, urllib.parse, html, subprocess
 
 f = open("%s/.flashrc" % (settings["directory"]), "w")
 
@@ -49,4 +49,6 @@ gtk-font-name = "DejaVu Sans Mono 9"
 	f.close()
 
 os.environ["HOME"] = settings["directory"] # set .flashrc to tmp
-os.system(settings["flashplayer-path"])
+
+with open(os.devnull, "wb") as f:
+	subprocess.Popen(settings["flashplayer-path"], stdout=f, stderr=subprocess.STDOUT)
